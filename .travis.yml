@@ -1,0 +1,22 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t asalad42/react-test -f ./client/Dockerfile.dev ./client
+
+# path to file and look into client dir to ger build context 
+
+script:
+  - docker run -e CI=true asalad42/react-test npm run test
+
+after_success: 
+  - docker build -t asalad42/multi-client ./client 
+  - docker build -t asalad42/multi-nginx ./nginx
+  - docker build -t asalad42/multi-server ./server  
+  - docker build -t asalad42/multi-worker ./worker  
+
+
+
