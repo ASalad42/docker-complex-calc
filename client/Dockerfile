@@ -4,11 +4,11 @@ WORKDIR '/app'
 
 COPY ./package.json ./
 
-RUN nmp install 
+RUN npm install 
 
 COPY . .
 
-RUN nmp run build 
+RUN npm run build 
 # creates default build dir
 
 FROM nginx 
